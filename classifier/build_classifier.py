@@ -1,54 +1,39 @@
-from sklearn.decomposition import RandomizedPCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.cross_validation import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import confusion_matrix
-from PIL import Image
-import os
 import numpy as np
+import cv2
+from matplotlib import pyplot as plt
 
-files = ["./numbers/" + f for f in os.listdir("./numbers")]
+# digits.png is an opencv image that contains 20x20 pixel handwritten digits
+img = cv2.imread('digits.png')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
-STANDARD_SIZE = (50, 50)
-def get_image_data(filename):
-    img = Image.open(filename)
-    img = img.getdata()
-    img = img.resize(STANDARD_SIZE)
-    img = map(list, img)
-    img = np.array(img)
-    s = img.shape[0] * img.shape[1]
-    img_wide = img.reshape(1, s)
-    return img_wide[0]
+# split the image to 5000 cells, each 20x20 size
+cells = [np.hsplit(row,100) for row in np.vsplit(gray,50)]
 
-data = []
-labels = []
-print "extracting features..."
-for f in files:
-    data.append(get_image_data(f))
-    labels.append(int(f.split(".")[0][-1]))
-print "done."
+# Make it into a Numpy array. Its size will be (50,100,20,20)
+x = np.array(cells)
 
-pca = RandomizedPCA(n_components=10)
-std_scalar = StandardScaler()
+# Now we prepare train_data
+train = x.reshape(-1,400).astype(np.float32) # Size = (2500,400)
 
-X_train, X_text, y_train, y_test = train_test_split(data, labels, test_size=0.1)
+# Create labels for train and test data
+k = np.arange(10)
+train_labels = np.repeat(k,500)[:,np.newaxis]
 
-X_train = pca.fit_transform(X_train)
-X_test = pca.transform(X_test)
+# Initiate kNN, train the data, then test it with test data for k=1
+knn = cv2.KNearest()
+knn.train(train,train_labels)
 
-X_train = std_scaler.fit_transform(X_train)
-X_test = std_scaler.transform(X_test)
+# Load image we are testing
+test_img = cv2.imread('test.png')
+grey = cv2.cvtColor(test_img, cv2.COLOR_BGR2GRAY)
 
-clf = KNeighborsClassifier(n_neighbors=13)
-clf.fit(X_train, y_train)
-print "done"
-print "="*20
-print clf
+# Create numpy array
+nu_cells = [np.hsplit(row,20) for row in np.vsplit(grey, 20)]
+nu_grey = np.array(nu_cells)
 
-print "Confusion Matrix"
-print "="*40
-print confusion_matrix(y_test, clf.predict(X_test))
+nu_test = nu_grey.reshape(-1, 400).astype(np.float32)
 
+# Use classifier 
+ret2, result2, neighbours2, dist2 = knn.find_nearest(nu_test,k=1)
 
-# Predict
-
+print result2[0][0]
