@@ -4,6 +4,30 @@
 	
 }
 
+.horizontal-view{
+	display: inline;
+}
+
+.in-context{
+	display: inline-block;
+}
+
+.arro{
+	height: 270px;
+}
+
+.canv{
+
+}
+
+.under-canvas-spacing{
+	height: 40px;
+}
+
+.under-arrow-spacing{
+	height: 390px;
+}
+
 .body-front{
 	background-color: #FCF3BF;
 	box-shadow: 0px 0px 100px #909090;

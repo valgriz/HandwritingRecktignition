@@ -19,26 +19,40 @@
         
         <br>
 
+        <div class="horizontal-view">
+          <div class='in-context canv'>
+            <h4 class="body-text">Write a number (0-9) in the box below</h4>
+            <canvas id="canvas1" width="400" height="400" style="border:1px solid #d3d3d3;"> Your browser does not support the HTML5 canvas tag.</canvas>
+            <br>
+              <div class="btn-group under-canvas-spacing" role="group" aria-label="...">
+                <button type="button" class="btn btn-default btn-modify-a">Reset</button>
+                <button type="button" class="btn btn-default btn-modify-a">Submit</button>
+             </div>
 
 
-        <h4 class="body-text">Write a number (0-9) in the box below</h4>
-        <canvas id="canvas1" width="400" height="400" style="border:1px solid #d3d3d3;"> Your browser does not support the HTML5 canvas tag.</canvas>
+          </div>
 
-        <br>
+          <div class='in-context arro'>
+              <img src="site_images/right_arrow.png" alt="Right arrow">
+              <br>
+             <div class="btn-group under-arrow-spacing" role="group" aria-label="...">
 
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" class="btn btn-default btn-modify-a">Reset</button>
-          <button type="button" class="btn btn-default btn-modify-a">Submit</button>
-        </div>
+             </div>
+          </div>
 
-        <br>
-        <br>
-        <h4 class="body-text">Your number has been detected:</h4>
-        <canvas id="canvas2" width="400" height="400" style="border:1px solid #d3d3d3;"> Your browser does not support the HTML5 canvas tag.</canvas>
-
+          <div class='in-context canv'>
+            <h4 class="body-text">Computer output</h4>
+            <canvas id="canvas2" width="400" height="400" style="border:1px solid #d3d3d3;"> Your browser does not support the HTML5 canvas tag.</canvas>
+            <br>
+            <div class="btn-group under-canvas-spacing" role="group" aria-label="...">
+              <h4 class="body-text">Your number has been detected</h4>
+            </div>
+          </div>
+        <div>
         <h4 class="body-text">Not your number?</h4>
         <h5 class="body-text">Tell us what number you wrote so we can learn from our mistakes!</h5>
 
+        <br>
         <div class="btn-group" role="group" aria-label="...">
           <button type="button" class="btn btn-default">0</button>
           <button type="button" class="btn btn-default">1</button>
