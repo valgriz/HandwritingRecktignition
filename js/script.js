@@ -45,10 +45,8 @@ function resetDrawing(){
 }
 
 function submitDrawing(){
-	alert('not submitted yet')
 	var canv = document.getElementById("canvas1");
 	var image = canv.toDataURL("image/png");
-	alert('submited')
 }
 
 var clickX = new Array();
